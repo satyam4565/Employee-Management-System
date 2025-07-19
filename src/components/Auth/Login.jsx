@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; 
 
-const Login = ({ handleLogin }) => {
+const Login = ({ handleLogin, handleShowSignUp }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -48,7 +48,7 @@ const Login = ({ handleLogin }) => {
                     </button>
                 </form>
                 <p className="form-footer">
-                    Don't have an account? <a href="#" className="form-link">Sign up</a>
+                    Don't have an account? <a href="#" className="form-link" onClick={handleShowSignUp}>Sign up</a>
                 </p>
             </div>
         </div>
