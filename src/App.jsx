@@ -4,6 +4,7 @@ import SignUp from './components/Auth/SignUp'
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard'
 import AdminDashboard from './components/Dashboard/AdminDashboard'
 import { AuthContext } from './context/AuthProvider'
+import { getLocalStorage } from './utils/localStorage'
 
 const App = () => {
 
@@ -27,11 +28,19 @@ const App = () => {
   const handleLogin = (email, password) => {
     console.log('Login attempt:', { email, userData })
     
-    // Check admin credentials
-    if (email === 'admin@me.com' && password === '123') {
-      setUser('admin')
-      localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
-      return
+    // Check admin credentials from localStorage
+    try {
+      const { admin } = getLocalStorage()
+      if (admin && Array.isArray(admin)) {
+        const isAdmin = admin.find(a => a.email === email && a.password === password)
+        if (isAdmin) {
+          setUser('admin')
+          localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
+          return
+        }
+      }
+    } catch (err) {
+      console.error('Error reading admin from storage', err)
     }
     
     // Check employee credentials

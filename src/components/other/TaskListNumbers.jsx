@@ -2,22 +2,22 @@ import React from 'react'
 
 const TaskListNumbers = ({data}) => {
   return (
-    <div className='flex mt-10 justify-between gap-5 screen'>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-blue-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.newTask}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>New Task</h3>
+    <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8'>
+        <div className='rounded-xl py-5 px-6 bg-gray-900 border border-gray-800'>
+            <div className='text-2xl font-bold text-white'>{data.taskCounts.newTask}</div>
+            <div className='text-sm text-gray-400 mt-1'>New</div>
         </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-green-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.completed}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>Completed Task</h3>
+        <div className='rounded-xl py-5 px-6 bg-gray-900 border border-gray-800'>
+            <div className='text-2xl font-bold text-white'>{data.taskCounts.completed}</div>
+            <div className='text-sm text-gray-400 mt-1'>Completed</div>
         </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-yellow-400 '>
-            <h2 className='text-3xl text-black font-bold'>{data.taskCounts.active}</h2>
-            <h3 className='text-xl mt-0.5 text-black font-medium'>Accepted Task</h3>
+        <div className='rounded-xl py-5 px-6 bg-gray-900 border border-gray-800'>
+            <div className='text-2xl font-bold text-white'>{data.taskCounts.active}</div>
+            <div className='text-sm text-gray-400 mt-1'>Active</div>
         </div>
-        <div className='rounded-xl w-[45%] py-6 px-9 bg-red-400'>
-            <h2 className='text-3xl font-bold'>{data.taskCounts.failed}</h2>
-            <h3 className='text-xl mt-0.5 font-medium'>Failed Task</h3>
+        <div className='rounded-xl py-5 px-6 bg-gray-900 border border-gray-800'>
+            <div className='text-2xl font-bold text-white'>{data.taskCounts.failed}</div>
+            <div className='text-sm text-gray-400 mt-1'>Failed</div>
         </div>
     </div>
   )

@@ -16,18 +16,24 @@ const CreateTask = () => {
     const submitHandler = (e) => {
         e.preventDefault()
 
-        setNewTask({ taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false })
+        const createdTask = { taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false }
+        setNewTask(createdTask)
 
-        const data = userData
-
-        data.forEach(function (elem) {
-            if (asignTo == elem.firstName) {
-                elem.tasks.push(newTask)
-                elem.taskCounts.newTask = elem.taskCounts.newTask + 1
+        const updated = userData.map((employee) => {
+            if (asignTo === employee.firstName) {
+                return {
+                    ...employee,
+                    tasks: [...employee.tasks, createdTask],
+                    taskCounts: {
+                        ...employee.taskCounts,
+                        newTask: employee.taskCounts.newTask + 1
+                    }
+                }
             }
+            return employee
         })
-        setUserData(data)
-        console.log(data);
+        setUserData(updated)
+        console.log(updated);
 
         setTaskTitle('')
         setCategory('')
@@ -38,8 +44,8 @@ const CreateTask = () => {
     }
 
     return (
-        <div className="p-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 mt-6 rounded-2xl shadow-xl border border-gray-700">
-          <h2 className="text-3xl font-extrabold text-white mb-8 tracking-wide">📝 Create a New Task</h2>
+        <div className="p-10 bg-gray-950 mt-6 rounded-2xl shadow-xl border border-gray-800">
+          <h2 className="text-2xl font-bold text-white mb-6 tracking-wide">Create a new task</h2>
           <form
             onSubmit={(e) => {
               submitHandler(e)
@@ -72,14 +78,17 @@ const CreateTask = () => {
       
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Assign To</label>
-              <input
-                type="text"
+              <select
                 value={asignTo}
                 onChange={(e) => setAsignTo(e.target.value)}
                 required
                 className="w-full bg-gray-800 text-white border border-gray-700 rounded-xl py-3 px-5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-                placeholder="Assign to"
-              />
+              >
+                <option value="" disabled>Select employee</option>
+                {userData.map((emp) => (
+                  <option key={emp.id} value={emp.firstName}>{emp.firstName} ({emp.email})</option>
+                ))}
+              </select>
             </div>
       
             <div>

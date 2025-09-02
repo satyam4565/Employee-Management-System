@@ -25,6 +25,17 @@ const AuthProvider = ({ children }) => {
             console.error('Error initializing AuthProvider:', error)
         }
     }, [])
+
+    // Persist employees back to localStorage whenever they change
+    useEffect(() => {
+        try {
+            if (userData && Array.isArray(userData)) {
+                localStorage.setItem('employees', JSON.stringify(userData))
+            }
+        } catch (error) {
+            console.error('Error persisting employees:', error)
+        }
+    }, [userData])
     
     
 

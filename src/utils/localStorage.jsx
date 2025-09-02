@@ -208,8 +208,16 @@ const admin = [{
 }];
 
 export const setLocalStorage = ()=>{
-    localStorage.setItem('employees',JSON.stringify(employees))
-    localStorage.setItem('admin',JSON.stringify(admin))
+    // Initialize only if not already present to avoid overwriting real signups
+    const existingEmployees = localStorage.getItem('employees')
+    const existingAdmin = localStorage.getItem('admin')
+
+    if(!existingEmployees){
+        localStorage.setItem('employees',JSON.stringify(employees))
+    }
+    if(!existingAdmin){
+        localStorage.setItem('admin',JSON.stringify(admin))
+    }
 }
 export const getLocalStorage = ()=>{
     const employees = JSON.parse(localStorage.getItem('employees'))
